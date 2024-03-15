@@ -7,6 +7,22 @@ from datetime import timedelta
 #
 ####################################################################################
 
+# Set the secret key
+# Make sure to set the secret key in the SUPERSET_SECRET_KEY environment variable
+
+# Set the Flask debug flag
+# Make sure to the the Flask debug flag in the FLASK_DEBUG environment variable
+
+# Make sure to specify all attributes of the metastore DB in environment variables specified below
+# SQLALCHEMY_DATABASE_URI = (
+#    f"{DATABASE_DIALECT}://"
+#    f"{DATABASE_USER}:{DATABASE_PASSWORD}@"
+#    f"{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_DB}"
+#)
+
+# Disabling Python stack traces by default
+SHOW_STACKTRACE = os.environ.get("SHOW_STACKTRACE", False)
+
 # Enable alerts and reports
 FEATURE_FLAGS = {"ALERT_REPORTS": True}
 
@@ -28,3 +44,12 @@ EXPLORE_FORM_DATA_CACHE_CONFIG = {
     'CACHE_KEY_PREFIX': 'superset_explore_cache_',
     'CACHE_REDIS_URL': f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_CACHE_DB}"
 }
+
+# Configure the Flask rate limiter
+RATELIMIT_STORAGE_URI = f"redis://{REDIS_HOST}:{REDIS_PORT}"
+
+# Enable template processing
+FEATURE_FLAGS = {"ENABLE_TEMPLATE_PROCESSING": True}
+
+# Enabling proxy headers
+ENABLE_PROXY_FIX = True
