@@ -1,0 +1,4 @@
+pymssql
+pyodbc
+starrocks
+apache-superset[databricks]
