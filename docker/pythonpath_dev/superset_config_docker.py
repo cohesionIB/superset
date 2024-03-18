@@ -53,3 +53,9 @@ FEATURE_FLAGS = {"ENABLE_TEMPLATE_PROCESSING": True}
 
 # Enabling proxy headers
 ENABLE_PROXY_FIX = True
+
+# Branding
+APP_NAME = "Superset | Cohesion"
+APP_ICON = "/static/assets/images/Logo_Cohesion.png"
+LOGO_TOOLTIP = "CohesionIB"
+FAVICONS = [{"href": "/static/assets/images/Favicon_Cohesion.jpg"}]
