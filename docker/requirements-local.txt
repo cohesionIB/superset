@@ -1,5 +1,3 @@
 psycopg2
-pymssql
-pyodbc
-starrocks
-apache-superset[databricks]
+databricks-sql-connector[sqlalchemy]
+
