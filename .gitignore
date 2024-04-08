@@ -110,3 +110,4 @@ release.json
 messages.mo
 
 cache/
+docker/*local*
