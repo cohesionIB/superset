@@ -68,7 +68,7 @@ extraEnv: {}
   # These variables are used as Flags at the gunicorn startup
   # https://github.com/apache/superset/blob/master/docker/run-server.sh#L22
   # Extend timeout to allow long running queries.
-  # GUNICORN_TIMEOUT: 300
+  # GUNICORN_TIMEOUT: 1800
   # Increase the gunicorn worker amount, can improve performance drastically
   # See: https://docs.gunicorn.org/en/stable/design.html#how-many-workers
   # SERVER_WORKER_AMOUNT: 4
