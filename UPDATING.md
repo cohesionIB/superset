@@ -38,6 +38,11 @@ assists people when migrating to a new version.
 - [27697](https://github.com/apache/superset/pull/27697) [minor] flask-session bump leads to them
   deprecating `SESSION_USE_SIGNER`, check your configs as this flag won't do anything moving
   forward.
+- [27849](https://github.com/apache/superset/pull/27849/) More of an FYI, but we have a
+  new config `SLACK_ENABLE_AVATARS` (False by default) that works in conjunction with
+  set `SLACK_API_TOKEN` to fetch and serve Slack avatar links
+- [28134](https://github.com/apache/superset/pull/28134/) The default logging level was changed
+  from DEBUG to INFO - which is the normal/sane default logging level for most software.
 
 ## 4.0.0
 
