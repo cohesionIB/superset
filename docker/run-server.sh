@@ -27,7 +27,7 @@ gunicorn \
     --worker-class ${SERVER_WORKER_CLASS:-gthread} \
     --threads ${SERVER_THREADS_AMOUNT:-20} \
     --log-level "${GUNICORN_LOGLEVEL:info}" \
-    --timeout ${GUNICORN_TIMEOUT:-60} \
+    --timeout ${GUNICORN_TIMEOUT:-1800} \
     --keep-alive ${GUNICORN_KEEPALIVE:-2} \
     --max-requests ${WORKER_MAX_REQUESTS:-0} \
     --max-requests-jitter ${WORKER_MAX_REQUESTS_JITTER:-0} \

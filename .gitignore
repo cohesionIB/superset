@@ -114,6 +114,8 @@ superset/translations/**/messages.mo
 
 cache/
 docker/*local*
+helm/superset/values.yaml
+docker/run-server.sh
 
 .temp_cache
 
