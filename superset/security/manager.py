@@ -16,6 +16,7 @@
 # under the License.
 # pylint: disable=too-many-lines
 """A set of constants and methods to manage permissions and security"""
+
 import json
 import logging
 import re
@@ -242,7 +243,6 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
         "CSS Templates",
         "ColumnarToDatabaseView",
         "CssTemplate",
-        "CsvToDatabaseView",
         "ExcelToDatabaseView",
         "Import dashboards",
         "ImportExportRestApi",
@@ -250,7 +250,11 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
         "Queries",
         "ReportSchedule",
         "TableSchemaView",
-        "Upload a CSV",
+    }
+
+    ALPHA_ONLY_PMVS = {
+        ("can_csv_upload", "Database"),
+        ("can_excel_upload", "Database"),
     }
 
     ADMIN_ONLY_PERMISSIONS = {
@@ -854,9 +858,9 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
         pvms = self.get_session.query(PermissionView).filter(
             or_(
                 PermissionView.permission  # pylint: disable=singleton-comparison
-                == None,
+                == None,  # noqa: E711
                 PermissionView.view_menu  # pylint: disable=singleton-comparison
-                == None,
+                == None,  # noqa: E711
             )
         )
         self.get_session.commit()
@@ -997,7 +1001,8 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
         :param pvm: The FAB permission/view
         :returns: Whether the FAB object is accessible to only Admin users
         """
-
+        if (pvm.permission.name, pvm.view_menu.name) in self.ALPHA_ONLY_PMVS:
+            return False
         if (
             pvm.view_menu.name in self.READ_ONLY_MODEL_VIEWS
             and pvm.permission.name not in self.READ_ONLY_PERMISSION
@@ -1021,6 +1026,8 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
             pvm.view_menu.name in self.GAMMA_READ_ONLY_MODEL_VIEWS
             and pvm.permission.name not in self.READ_ONLY_PERMISSION
         ):
+            return True
+        if (pvm.permission.name, pvm.view_menu.name) in self.ALPHA_ONLY_PMVS:
             return True
         return (
             pvm.view_menu.name in self.ALPHA_ONLY_VIEW_MENUS
@@ -1915,6 +1922,7 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
         table: Optional["Table"] = None,
         viz: Optional["BaseViz"] = None,
         sql: Optional[str] = None,
+        catalog: Optional[str] = None,  # pylint: disable=unused-argument
         schema: Optional[str] = None,
     ) -> None:
         """
@@ -1927,6 +1935,7 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
         :param table: The Superset table (requires database)
         :param viz: The visualization
         :param sql: The SQL string (requires database)
+        :param catalog: Optional catalog name
         :param schema: Optional schema name
         :raises SupersetSecurityException: If the user cannot access the resource
         """
