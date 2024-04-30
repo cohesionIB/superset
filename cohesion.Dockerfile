@@ -8,6 +8,6 @@ COPY --chown=superset:superset ./superset-frontend/src/assets/images/Favicon_Coh
 
 COPY --chmod=755 ./docker/run-server.sh /usr/bin/
 
-RUN pip install --no-cache-dir databricks-sql-connector==2.9.5 sqlalchemy-databricks==0.2.0 apache-superset[cors] duckdb sqlalchemy-duckdb
+RUN pip install --no-cache-dir databricks-sql-connector==2.9.5 sqlalchemy-databricks==0.2.0 apache-superset[cors] duckdb duckdb-engine
 
 USER superset
