@@ -142,7 +142,14 @@ FAVICONS = [{"href": "/static/assets/images/Favicon_Cohesion.jpg"}]
 THEME_OVERRIDES = {
   "colors": {
     "primary": {
-      "base": '#456bde',
+      "base": '#456BDE',
+      "dark1": '#3756B2',
+      "dark2": '#294085',
+      "light1": '#6A89E5',
+      "light2": '#8FA6EB',
+      "light3": '#B5C4F2',
+      "light4": '#DAE1F8',
+      "light5": '#EDF1FC',
     }
   }
 }
