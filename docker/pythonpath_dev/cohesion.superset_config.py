@@ -102,6 +102,7 @@ FEATURE_FLAGS = {"ALERT_REPORTS": True,
                  "DASHBOARD_RBAC": True,
                  "DYNAMIC_PLUGINS": True,
                  "ALERTS_ATTACH_REPORTS": True,
+                 "THUMBNAILS": True,
                  "ALLOW_ADHOC_SUBQUERY": True}
 ALERT_REPORTS_NOTIFICATION_DRY_RUN = True
 WEBDRIVER_BASEURL = os.getenv("WEBDRIVER_BASEURL", "http://superset:8088/")
