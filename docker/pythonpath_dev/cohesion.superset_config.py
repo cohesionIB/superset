@@ -1,8 +1,10 @@
 import logging
 import os
+import re
 from datetime import timedelta
 
 from celery.schedules import crontab
+from superset import security_manager
 from flask_caching.backends.rediscache import RedisCache
 
 logger = logging.getLogger()
@@ -156,12 +158,24 @@ THEME_OVERRIDES = {
   }
 }
 
-# Enable CORS
+# Enable CORS both for development and production
 ENABLE_CORS = True
 CORS_OPTIONS = {
       'supports_credentials': True,
       'allow_headers': ['*'],
       "expose_headers": ['*'],
       'resources': ['*'],
-      'origins': ['cibdev-superset.nicedune-a486c6dd.centralus.azurecontainerapps.io', 'dev-insights.cohesionib.com']
+      'origins': ['cibdev-superset.nicedune-a486c6dd.centralus.azurecontainerapps.io', 'dev-insights.cohesionib.com',
+                  'cibprd-superset.ambitiousisland-72d3bd9b.centralus.azurecontainerapps.io', 'insights.cohesionib.com']
     }
+
+# Precompile the portfolio name retrieval regex
+PORTFOLIO_NAME_FROM_ROLE_REGEX = re.compile(r"^\s*(?P<Portfolio>.+\b)\s+\|\s+(?P<Persona>.+\b)\s*$")
+
+def get_current_user_portfolios():
+    portfolio_names = ["'" + match.group("Portfolio") + "'" for role in security_manager.get_user_roles() if (match := PORTFOLIO_NAME_FROM_ROLE_REGEX.match(role.name))]
+    return ', '.join(portfolio_names)
+
+JINJA_CONTEXT_ADDONS = {
+    "current_user_portfolios": get_current_user_portfolios
+}
