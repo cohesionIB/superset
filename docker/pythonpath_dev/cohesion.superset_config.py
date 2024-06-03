@@ -102,10 +102,23 @@ FEATURE_FLAGS = {"ALERT_REPORTS": True,
                  "DASHBOARD_RBAC": True,
                  "DYNAMIC_PLUGINS": True,
                  "ALERTS_ATTACH_REPORTS": True,
-                 "THUMBNAILS": True,
+                 # "THUMBNAILS": True,
+                 # "THUMBNAILS_SQLA_LISTENERS": True,
                  "ALLOW_ADHOC_SUBQUERY": True}
+
 ALERT_REPORTS_NOTIFICATION_DRY_RUN = True
-WEBDRIVER_BASEURL = os.getenv("WEBDRIVER_BASEURL", "http://superset:8088/")
+WEBDRIVER_BASEURL = os.getenv("WEBDRIVER_BASEURL", "http://localhost:8088/")
+WEBDRIVER_TYPE= "chrome"
+WEBDRIVER_OPTION_ARGS = [
+    "--force-device-scale-factor=2.0",
+    "--high-dpi-support=2.0",
+    "--headless",
+    "--disable-gpu",
+    "--disable-dev-shm-usage",
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-extensions",
+]
 # The base URL for the email report hyperlinks.
 WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
 
