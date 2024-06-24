@@ -1,3 +1,8 @@
-psycopg2
-databricks-sql-connector[sqlalchemy]
-
+psycopg2-binary
+databricks-sql-connector==2.9.5
+sqlalchemy-databricks==0.2.0
+duckdb
+duckdb-engine
+gevent
+redis
+authlib
