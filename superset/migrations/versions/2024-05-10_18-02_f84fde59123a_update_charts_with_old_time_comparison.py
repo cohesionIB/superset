@@ -22,7 +22,6 @@ Create Date: 2024-05-10 18:02:38.891060
 
 """
 
-import json
 import logging
 from copy import deepcopy
 from datetime import datetime, timedelta
@@ -35,6 +34,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from superset import db
 from superset.migrations.shared.utils import paginated_update
+from superset.utils import json
 from superset.utils.date_parser import get_since_until
 
 # revision identifiers, used by Alembic.
@@ -111,7 +111,7 @@ def upgrade():
                 f"An error occurred: Upgrading params for slice {slc.id} failed."
                 f"You need to fix it before upgrading your DB."
             )
-            raise Exception(f"An error occurred while upgrading slice: {ex}")
+            raise Exception(f"An error occurred while upgrading slice: {ex}") from ex
 
     session.commit()
     session.close()
@@ -206,7 +206,7 @@ def downgrade():
                 f"An error occurred: Downgrading params for slice {slc.id} failed."
                 f"You need to fix it before downgrading your DB."
             )
-            raise Exception(f"An error occurred while downgrading slice: {ex}")
+            raise Exception(f"An error occurred while downgrading slice: {ex}") from ex
 
     session.commit()
     session.close()

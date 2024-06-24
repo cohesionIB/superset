@@ -14,7 +14,6 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-import json
 import logging
 from datetime import datetime, timedelta
 from typing import Any, Optional, Union
@@ -67,6 +66,7 @@ from superset.reports.notifications import create_notification
 from superset.reports.notifications.base import NotificationContent
 from superset.reports.notifications.exceptions import NotificationError
 from superset.tasks.utils import get_executor
+from superset.utils import json
 from superset.utils.core import HeaderDataType, override_user
 from superset.utils.csv import get_chart_csv_data, get_chart_dataframe
 from superset.utils.decorators import logs_context
@@ -599,7 +599,7 @@ class ReportNotTriggeredErrorState(BaseReportState):
                     self.update_report_schedule_and_log(
                         ReportState.ERROR, error_message=second_error_message
                     )
-            raise first_ex
+            raise
 
 
 class ReportWorkingState(BaseReportState):
@@ -662,7 +662,7 @@ class ReportSuccessState(BaseReportState):
                     ReportState.ERROR,
                     error_message=REPORT_SCHEDULE_ERROR_NOTIFICATION_MARKER,
                 )
-                raise ex
+                raise
 
         try:
             self.send()
@@ -737,8 +737,8 @@ class AsyncExecuteReportScheduleCommand(BaseCommand):
                 ReportScheduleStateMachine(
                     self._execution_id, self._model, self._scheduled_dttm
                 ).run()
-        except CommandException as ex:
-            raise ex
+        except CommandException:
+            raise
         except Exception as ex:
             raise ReportScheduleUnexpectedError(str(ex)) from ex
 

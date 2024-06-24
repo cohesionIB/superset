@@ -16,7 +16,6 @@
 # under the License.
 """Unit tests for Superset"""
 
-import json
 from io import BytesIO
 from unittest import mock
 from zipfile import is_zipfile, ZipFile
@@ -38,6 +37,7 @@ from superset.models.dashboard import Dashboard
 from superset.models.slice import Slice
 from superset.reports.models import ReportSchedule, ReportScheduleType
 from superset.tags.models import ObjectType, Tag, TaggedObject, TagType
+from superset.utils import json
 from superset.utils.core import get_example_default_schema
 from superset.utils.database import get_example_database  # noqa: F401
 from superset.viz import viz_types  # noqa: F401
@@ -600,7 +600,7 @@ class TestChartApi(ApiOwnersTestCaseMixin, InsertChartMixin, SupersetTestCase):
             {
                 "message": {
                     "datasource_type": [
-                        "Must be one of: sl_table, table, dataset, query, saved_query, view."
+                        "Must be one of: table, dataset, query, saved_query, view."
                     ]
                 }
             },
@@ -961,7 +961,7 @@ class TestChartApi(ApiOwnersTestCaseMixin, InsertChartMixin, SupersetTestCase):
             {
                 "message": {
                     "datasource_type": [
-                        "Must be one of: sl_table, table, dataset, query, saved_query, view."
+                        "Must be one of: table, dataset, query, saved_query, view."
                     ]
                 }
             },

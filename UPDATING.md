@@ -24,6 +24,10 @@ assists people when migrating to a new version.
 
 ## Next
 
+- [29274](https://github.com/apache/superset/pull/29274): We made it easier to trigger CI on your
+  forks, whether they are public or private. Simply push to a branch that fits `[0-9].[0-9]*` and
+  should run on your fork, giving you flexibility on naming your release branches and triggering
+  CI
 - [27505](https://github.com/apache/superset/pull/27505): We simplified the files under
   `requirements/` folder. If you use these files for your builds you may want to double
   check that your builds are not affected. `base.txt` should be the same as before, though
@@ -47,6 +51,10 @@ assists people when migrating to a new version.
   more clearly provides access to all databases, as specified in its name. Before it only allowed
   listing all databases in CRUD-view and dropdown and didn't provide access to data as it
   seemed the name would imply.
+- [28483](https://github.com/apache/superset/pull/28483) Starting with this version we bundle
+  translations inside the python package. This includes the .mo files needed by pybabel on the
+  backend, as well as the .json files used by the frontend. If you were doing anything before
+  as part of your bundling to expose translation packages, it's probably not needed anymore.
 
 ### Potential Downtime
 

@@ -16,7 +16,6 @@
 # under the License.
 from __future__ import annotations
 
-import json
 import uuid
 from datetime import datetime, timedelta
 from typing import TYPE_CHECKING
@@ -24,6 +23,7 @@ from typing import TYPE_CHECKING
 from flask.ctx import AppContext
 
 from superset.extensions import db
+from superset.utils import json
 from tests.integration_tests.key_value.commands.fixtures import (
     ID_KEY,
     JSON_CODEC,
@@ -76,7 +76,7 @@ def test_get_expired_entry(app_context: AppContext) -> None:
         expires_on=datetime.now() - timedelta(days=1),
     )
     db.session.add(entry)
-    db.session.commit()
+    db.session.flush()
     value = GetKeyValueCommand(resource=RESOURCE, key=ID_KEY, codec=JSON_CODEC).run()
     assert value is None
     db.session.delete(entry)
@@ -96,7 +96,7 @@ def test_get_future_expiring_entry(app_context: AppContext) -> None:
         expires_on=datetime.now() + timedelta(days=1),
     )
     db.session.add(entry)
-    db.session.commit()
+    db.session.flush()
     value = GetKeyValueCommand(resource=RESOURCE, key=id_, codec=JSON_CODEC).run()
     assert value == JSON_VALUE
     db.session.delete(entry)

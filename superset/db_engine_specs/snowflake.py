@@ -14,7 +14,6 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-import json
 import logging
 import re
 from datetime import datetime
@@ -39,6 +38,7 @@ from superset.db_engine_specs.base import BaseEngineSpec, BasicPropertiesType
 from superset.db_engine_specs.postgres import PostgresBaseEngineSpec
 from superset.errors import ErrorLevel, SupersetError, SupersetErrorType
 from superset.models.sql_lab import Query
+from superset.utils import json
 
 if TYPE_CHECKING:
     from superset.models.core import Database
@@ -368,7 +368,7 @@ class SnowflakeEngineSpec(PostgresBaseEngineSpec):
             encrypted_extra = json.loads(database.encrypted_extra)
         except json.JSONDecodeError as ex:
             logger.error(ex, exc_info=True)
-            raise ex
+            raise
         auth_method = encrypted_extra.get("auth_method", None)
         auth_params = encrypted_extra.get("auth_params", {})
         if not auth_method:

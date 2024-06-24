@@ -17,7 +17,6 @@
 # pylint: disable=invalid-name
 from __future__ import annotations
 
-import json
 import logging
 from datetime import datetime
 from pprint import pformat
@@ -36,7 +35,7 @@ from superset.exceptions import (
 )
 from superset.sql_parse import sanitize_clause
 from superset.superset_typing import Column, Metric, OrderBy
-from superset.utils import pandas_postprocessing
+from superset.utils import json, pandas_postprocessing
 from superset.utils.core import (
     DTTM_ALIAS,
     find_duplicates,
@@ -277,7 +276,7 @@ class QueryObject:  # pylint: disable=too-many-instance-attributes
             return None
         except QueryObjectValidationError as ex:
             if raise_exceptions:
-                raise ex
+                raise
             return ex
 
     def _validate_no_have_duplicate_labels(self) -> None:

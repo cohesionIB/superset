@@ -17,7 +17,6 @@
 # isort:skip_file
 """Unit tests for Sql Lab"""
 
-import json
 from datetime import datetime
 from textwrap import dedent
 
@@ -45,6 +44,7 @@ from superset.sql_lab import (
 )
 from superset.sql_parse import CtasMethod
 from superset.utils.core import backend
+from superset.utils import json
 from superset.utils.json import datetime_to_epoch  # noqa: F401
 from superset.utils.database import get_example_database, get_main_database
 
@@ -573,9 +573,9 @@ class TestSqlLab(SupersetTestCase):
         assert data["status"] == "success"
 
         data = self.run_sql(
-            "SELECT * FROM birth_names WHERE state = '{{ state }}' -- blabblah {{ extra1 }} {{fake.fn()}}\nLIMIT 10",
+            "SELECT * FROM birth_names WHERE state = '{{ state }}' -- blabblah {{ extra1 }}\nLIMIT 10",
             "3",
-            template_params=json.dumps({"state": "CA"}),
+            template_params=json.dumps({"state": "CA", "extra1": "comment"}),
         )
         assert data["status"] == "success"
 

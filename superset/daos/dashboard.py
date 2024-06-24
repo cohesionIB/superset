@@ -16,7 +16,6 @@
 # under the License.
 from __future__ import annotations
 
-import json
 import logging
 from datetime import datetime
 from typing import Any
@@ -38,6 +37,7 @@ from superset.models.core import FavStar, FavStarClassName
 from superset.models.dashboard import Dashboard, id_or_slug_filter
 from superset.models.embedded_dashboard import EmbeddedDashboard
 from superset.models.slice import Slice
+from superset.utils import json
 from superset.utils.core import get_user_id
 from superset.utils.dashboard_filter_scopes_converter import copy_filter_scopes
 
@@ -79,6 +79,11 @@ class DashboardDAO(BaseDAO[Dashboard]):
     def get_datasets_for_dashboard(id_or_slug: str) -> list[Any]:
         dashboard = DashboardDAO.get_by_id_or_slug(id_or_slug)
         return dashboard.datasets_trimmed_for_slices()
+
+    @staticmethod
+    def get_tabs_for_dashboard(id_or_slug: str) -> dict[str, Any]:
+        dashboard = DashboardDAO.get_by_id_or_slug(id_or_slug)
+        return dashboard.tabs
 
     @staticmethod
     def get_charts_for_dashboard(id_or_slug: str) -> list[Slice]:
