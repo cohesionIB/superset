@@ -55,11 +55,24 @@ module.exports = {
 
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
-    options: {},
+    options: {
+      builder: {
+        useSWC: true,
+      },
+    },
   },
+  swc: () => ({
+    jsc: {
+      transform: {
+        react: {
+          runtime: 'automatic',
+        },
+      },
+    },
+  }),
 
   docs: {
-    autodocs: false,
+    autodocs: 'tag',
   },
 };
 
