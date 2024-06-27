@@ -114,4 +114,8 @@ superset/translations/**/messages.mo
 
 cache/
 docker/*local*
+
 .temp_cache
+
+# Jest test report
+test-report.html
