@@ -52,7 +52,9 @@ const {
 const isDevMode = mode !== 'production';
 const isDevServer = process.argv[1].includes('webpack-dev-server');
 const ASSET_BASE_URL = process.env.ASSET_BASE_URL || '';
-
+require('dotenv').config({
+  path: isDevMode ? '../docker/.env-local' : '../docker/.env',
+});
 const output = {
   path: BUILD_DIR,
   publicPath: `${ASSET_BASE_URL}/static/assets/`,
@@ -117,6 +119,7 @@ const plugins = [
     'process.env.REDUX_DEFAULT_MIDDLEWARE':
       process.env.REDUX_DEFAULT_MIDDLEWARE,
     'process.env.SCARF_ANALYTICS': JSON.stringify(process.env.SCARF_ANALYTICS),
+    'process.env': JSON.stringify(process.env),
   }),
 
   new CopyPlugin({

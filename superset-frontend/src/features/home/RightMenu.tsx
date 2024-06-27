@@ -49,6 +49,7 @@ import DatabaseModal from 'src/features/databases/DatabaseModal';
 import UploadDataModal from 'src/features/databases/UploadDataModel';
 import { uploadUserPerms } from 'src/views/CRUD/utils';
 import TelemetryPixel from 'src/components/TelemetryPixel';
+import HeySavvy from 'src/components/HeySavvy';
 import LanguagePicker from './LanguagePicker';
 import {
   ExtensionConfigs,
@@ -597,6 +598,7 @@ const RightMenu = ({
         sha={navbarRight.version_sha}
         build={navbarRight.build_number}
       />
+      <HeySavvy />
     </StyledDiv>
   );
 };

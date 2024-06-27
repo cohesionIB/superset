@@ -51,6 +51,7 @@ InteractiveIconButton.argTypes = {
       '/images/icons/sql.svg',
       '/images/icons/server.svg',
       '/images/icons/image.svg',
+      '/images/icons/hey_savvy.svg',
       'Click to see example alt text',
     ],
   },
