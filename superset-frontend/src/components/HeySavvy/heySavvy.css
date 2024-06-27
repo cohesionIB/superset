@@ -1,0 +1,52 @@
+.ant-modal-body,
+.hey-savvy-container {
+  height: 100vh;
+}
+
+.hey-savvy-btn {
+  background-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-image-source: linear-gradient(94.19deg, #456bde 0.89%, #fc75ff 100%)
+    30%;
+  display: flex;
+  align-items: center;
+}
+
+.hey-savvy-btn span {
+  background: -webkit-linear-gradient(94.19deg, #456bde 0.89%, #fc75ff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+.hey-savvy-btn:hover {
+  background: linear-gradient(94.19deg, #456bde 0.89%, #fc75ff 100%);
+  animation: gradient 15s ease infinite;
+}
+
+.hey-savvy-btn:hover > span {
+  background: none !important;
+  -webkit-text-fill-color: white;
+  color: white;
+}
+
+.ant-drawer-body {
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 90%;
+  }
+  50% {
+    background-position: 100% 10%;
+  }
+  100% {
+    background-position: 0% 90%;
+  }
+}
