@@ -67,6 +67,7 @@ from superset.security.guest_token import (
     GuestUser,
 )
 from superset.sql_parse import extract_tables_from_jinja_sql, Table
+from superset.tasks.utils import get_current_user
 from superset.utils import json
 from superset.utils.core import (
     DatasourceName,
@@ -238,6 +239,12 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
         "SQL Lab",
         "User Registrations",
         "User's Statistics",
+        # Guarding all AB_ADD_SECURITY_API = True REST APIs
+        "Role",
+        "Permission",
+        "PermissionViewMenu",
+        "ViewMenu",
+        "User",
     } | USER_MODEL_VIEWS
 
     ALPHA_ONLY_VIEW_MENUS = {
@@ -2633,8 +2640,12 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
 
         if not is_feature_enabled("EMBEDDED_SUPERSET"):
             return False
+
         if not user:
+            if not get_current_user():
+                return False
             user = g.user
+
         return hasattr(user, "is_guest_user") and user.is_guest_user
 
     def get_current_guest_user_if_guest(self) -> Optional[GuestUser]:
@@ -2646,9 +2657,7 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
             return False
 
         dashboards = [
-            r
-            for r in user.resources
-            if r["type"] == GuestTokenResourceType.DASHBOARD.value
+            r for r in user.resources if r["type"] == GuestTokenResourceType.DASHBOARD
         ]
 
         # TODO (embedded): remove this check once uuids are rolled out

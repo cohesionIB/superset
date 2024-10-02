@@ -59,9 +59,6 @@ if make_url(SQLALCHEMY_DATABASE_URI).get_backend_name() == "sqlite":
         "removed in a future version of Superset."
     )
 
-if make_url(SQLALCHEMY_DATABASE_URI).get_backend_name() in ("postgresql", "mysql"):
-    SQLALCHEMY_ENGINE_OPTIONS["isolation_level"] = "READ COMMITTED"  # noqa: F405
-
 # Speeding up the tests.integration_tests.
 PRESTO_POLL_INTERVAL = 0.1
 HIVE_POLL_INTERVAL = 0.1
@@ -136,6 +133,8 @@ GLOBAL_ASYNC_QUERIES_JWT_SECRET = "test-secret-change-me-test-secret-change-me"
 ALERT_REPORTS_WORKING_TIME_OUT_KILL = True
 
 ALERT_REPORTS_QUERY_EXECUTION_MAX_TRIES = 3
+
+FAB_ADD_SECURITY_API = True
 
 
 class CeleryConfig:
