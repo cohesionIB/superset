@@ -116,7 +116,6 @@ cache/
 docker/*local*
 helm/superset/values.yaml
 docker/run-server.sh
-helm/superset/values.yaml
 
 .temp_cache
 

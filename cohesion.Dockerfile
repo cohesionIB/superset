@@ -32,7 +32,4 @@ RUN pip install --no-cache-dir databricks-sql-connector==2.9.5 sqlalchemy-databr
 RUN mkdir -p /mnt/data \
     && chown -R superset:superset /mnt/data
 
-RUN mkdir -p /mnt/data \
-    && chown -R superset:superset /mnt/data
-
 USER superset
